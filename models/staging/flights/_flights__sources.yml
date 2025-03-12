@@ -1,0 +1,60 @@
+sources:
+  - name: demo_src
+    database: dwh_flights
+    schema: demo_src
+    description: Данные из БД авиаперелетов
+    tables:
+      - name: aircrafts
+        description: Модели самолетов
+        columns:
+          - name: aircraft_code
+            description: >
+              Код модели самолета.
+              Состоит из 3 букв.
+            tests:
+              - not_null
+              - unique
+          - name: model
+            description: Название модели самолета
+          - name: range
+            description: Неизвестное поле
+      - name: airports
+        description: Аэропорты
+        columns:
+          - name: airport_code
+            description: Код аэропорта
+          - name: airport_name
+            description: Название аэропорта
+          - name: city
+            description: Город
+          - name: coordinates
+            description: Координаты
+          - name: timezone
+            description: Временная зона
+      - name: seats
+        description: Места в самолетах
+        columns:
+          - name: aircraft_code
+            description: Код самолета
+          - name: seat_no
+            description: Номер места
+          - name: fare_conditions
+            description: Класс
+      - name: bookings
+        description: Бронирования
+        columns:
+          - name: book_ref
+            description: Бронирование
+          - name: book_date
+            description: Дата бронирования
+          - name: total_amount
+            description: Сумма
+        freshness:
+          warn_after:
+            count: 6
+            period: hour
+          error_after:
+            count: 10000
+            period: day
+          filter: current_timestamp::date - book_date::date < 30000
+        loaded_at_field: book_date::timestamp
