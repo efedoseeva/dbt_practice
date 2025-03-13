@@ -40,6 +40,37 @@ sources:
             description: Номер места
           - name: fare_conditions
             description: Класс
+      - name: boarding_passes
+        description: Места в самолетах
+        columns:
+          - name: ticket_no
+            description: Номер билета
+          - name: flight_id
+            description: Номер рейса
+          - name: boarding_no
+            description: Номер посадочного
+          - name: seat_no
+            description: Номер места
+      - name: flights
+        description: полеты
+        columns:
+          - name: flight_id
+          - name: flight_no
+          - name: scheduled_departure
+          - name: scheduled_arrival
+          - name: departure_airport
+          - name: arrival_airport
+          - name: status
+          - name: aircraft_code
+          - name: actual_departure
+          - name: actual_arrival
+      - name: ticket_flights
+        description: Билеты
+        columns:
+          - name: ticket_no
+          - name: flight_id
+          - name: fare_conditions
+          - name: amount
       - name: bookings
         description: Бронирования
         columns:
